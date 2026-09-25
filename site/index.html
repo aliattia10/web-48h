@@ -19,7 +19,6 @@ header.top .wrap>div{display:flex;align-items:center}
 .logo{font-weight:800;letter-spacing:-.02em;text-decoration:none}.logo span{color:var(--brand)}
 nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-size:.95rem}
 nav a:hover{color:var(--ink)}
-.lang{margin-left:18px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;font-weight:600}
 .hero{background:linear-gradient(135deg,#0f766e 0%,#115e59 45%,#14213d 100%);color:#fff;padding:80px 0 90px}
 .hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.1;margin:0 0 16px;letter-spacing:-.03em}
 .hero h1 em{font-style:normal;color:#fcd34d}
@@ -56,8 +55,6 @@ summary{font-weight:700;cursor:pointer}
 .cta{background:var(--ink);color:#fff;border-radius:24px;padding:48px;text-align:center}
 .cta p{opacity:.9}
 footer{padding:30px 0;color:var(--muted);font-size:.9rem;text-align:center}
-[data-en]{}
-body.en [data-es-only]{display:none}
 @media(max-width:700px){nav a{display:none}.cta{padding:30px 20px}}
 </style>
 </head>
@@ -66,154 +63,112 @@ body.en [data-es-only]{display:none}
   <a class="logo" href="#">Web<span>48h</span></a>
   <div>
     <nav>
-      <a href="#que" data-i18n="nav1">Qué incluye</a>
-      <a href="#ejemplos" data-i18n="nav2">Ejemplos</a>
-      <a href="#precio" data-i18n="nav3">Precio</a>
-      <a href="#faq" data-i18n="nav4">Preguntas</a>
+      <a href="#que">Qué incluye</a>
+      <a href="#ejemplos">Ejemplos</a>
+      <a href="#precio">Precio</a>
+      <a href="#faq">Preguntas</a>
     </nav>
-    <button class="lang" id="langBtn" aria-label="Cambiar idioma / Switch language">EN</button>
   </div>
 </div></header>
 
 <section class="hero"><div class="wrap">
-  <h1 data-i18n-html="h1">Tu web en <em>48 horas</em> por <em>99€</em></h1>
-  <p class="lead" data-i18n="lead">Una página web sencilla, rápida y profesional para tu negocio en Oviedo y Asturias. Tus servicios, fotos, horario, mapa y un botón para que te escriban por WhatsApp o te llamen. Sin complicaciones y sin cuotas obligatorias.</p>
-  <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" data-i18n="cta1">✉️ Pídela por email</a>
-  <a class="btn ghost" href="#ejemplos" data-i18n="cta2">Ver ejemplos</a>
+  <h1>Tu web en <em>48 horas</em> por <em>99€</em></h1>
+  <p class="lead">Una página web sencilla, rápida y profesional para tu negocio en Oviedo y Asturias. Tus servicios, fotos, horario, mapa y un botón para que te escriban por WhatsApp o te llamen. Sin complicaciones y sin cuotas obligatorias.</p>
+  <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h">✉️ Pídela por email</a>
+  <a class="btn ghost" href="#ejemplos">Ver ejemplos</a>
   <p style="margin:14px 0 0;opacity:.9">✉️ <a href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" style="color:#fff;font-weight:700">ali.attia@virtualy.win</a></p>
   <div class="badges">
-    <span class="badge" data-i18n="b1">⚡ Lista en 48 h</span>
-    <span class="badge" data-i18n="b2">📱 Perfecta en móvil</span>
-    <span class="badge" data-i18n="b3">🔎 Preparada para Google</span>
-    <span class="badge" data-i18n="b4">🆓 Hosting gratis</span>
+    <span class="badge">⚡ Lista en 48 h</span>
+    <span class="badge">📱 Perfecta en móvil</span>
+    <span class="badge">🔎 Preparada para Google</span>
+    <span class="badge">🆓 Hosting gratis</span>
   </div>
 </div></section>
 
 <section id="que"><div class="wrap">
-  <h2 data-i18n="q_t">Qué incluye tu web</h2>
-  <p class="sub" data-i18n="q_s">Todo lo que un cliente necesita para encontrarte, confiar en ti y contactarte, en una sola página.</p>
+  <h2>Qué incluye tu web</h2>
+  <p class="sub">Todo lo que un cliente necesita para encontrarte, confiar en ti y contactarte, en una sola página.</p>
   <div class="grid g3">
-    <div class="card"><div class="ico">🧾</div><h3 data-i18n="f1t">Tus servicios y precios</h3><p data-i18n="f1d">Explicados de forma clara, para que el cliente sepa qué ofreces antes de llamar.</p></div>
-    <div class="card"><div class="ico">📸</div><h3 data-i18n="f2t">Fotos de tu negocio</h3><p data-i18n="f2d">Usamos tus fotos (las del móvil valen) optimizadas para que carguen rápido.</p></div>
-    <div class="card"><div class="ico">🕒</div><h3 data-i18n="f3t">Horario y ubicación</h3><p data-i18n="f3d">Horario siempre visible y mapa integrado para llegar sin perderse.</p></div>
-    <div class="card"><div class="ico">💬</div><h3 data-i18n="f4t">Botón de WhatsApp y llamada</h3><p data-i18n="f4d">Un toque y el cliente te escribe o te llama. Sin formularios complicados.</p></div>
-    <div class="card"><div class="ico">🔎</div><h3 data-i18n="f5t">Preparada para Google</h3><p data-i18n="f5d">Título, descripción y datos del negocio bien puestos, y enlazable desde tu ficha de Google Maps e Instagram.</p></div>
-    <div class="card"><div class="ico">🆓</div><h3 data-i18n="f6t">Hosting gratis</h3><p data-i18n="f6d">Publicada en Netlify, sin coste de alojamiento. Si quieres dominio propio (.es o .com), te ayudo a conectarlo (el dominio cuesta aparte, unos 10–15€/año).</p></div>
+    <div class="card"><div class="ico">🧾</div><h3>Tus servicios y precios</h3><p>Explicados de forma clara, para que el cliente sepa qué ofreces antes de llamar.</p></div>
+    <div class="card"><div class="ico">📸</div><h3>Fotos de tu negocio</h3><p>Usamos tus fotos (las del móvil valen) optimizadas para que carguen rápido.</p></div>
+    <div class="card"><div class="ico">🕒</div><h3>Horario y ubicación</h3><p>Horario siempre visible y mapa integrado para llegar sin perderse.</p></div>
+    <div class="card"><div class="ico">💬</div><h3>Botón de WhatsApp y llamada</h3><p>Un toque y el cliente te escribe o te llama. Sin formularios complicados.</p></div>
+    <div class="card"><div class="ico">🔎</div><h3>Preparada para Google</h3><p>Título, descripción y datos del negocio bien puestos, y enlazable desde tu ficha de Google Maps e Instagram.</p></div>
+    <div class="card"><div class="ico">🆓</div><h3>Hosting gratis</h3><p>Publicada en Netlify, sin coste de alojamiento. Si quieres dominio propio (.es o .com), te ayudo a conectarlo (el dominio cuesta aparte, unos 10–15€/año).</p></div>
   </div>
 </div></section>
 
 <section id="ejemplos" style="background:#fff"><div class="wrap">
-  <h2 data-i18n="e_t">Ejemplos</h2>
-  <p class="sub" data-i18n="e_s">Tres webs de demostración para negocios ficticios de Oviedo, para que veas cómo quedaría la tuya. Ábrelas en el móvil.</p>
+  <h2>Ejemplos</h2>
+  <p class="sub">Tres webs de demostración para negocios ficticios de Oviedo, para que veas cómo quedaría la tuya. Ábrelas en el móvil.</p>
   <div class="grid g3">
-    <a class="card demo" href="demo-peluqueria/"><div class="thumb" style="background:linear-gradient(135deg,#db2777,#7c3aed)">✂️</div><div class="body"><div class="tag" data-i18n="d1tag">Peluquería · Demo</div><h3>Peluquería Demo</h3><p data-i18n="d1d">Servicios con precios, galería, horario y reserva por WhatsApp.</p></div></a>
-    <a class="card demo" href="demo-sidreria/"><div class="thumb" style="background:linear-gradient(135deg,#b45309,#65a30d)">🍏</div><div class="body"><div class="tag" data-i18n="d2tag">Sidrería · Demo</div><h3>Sidrería Demo</h3><p data-i18n="d2d">Carta, menú del día, fotos del local, mapa y botón de reserva.</p></div></a>
-    <a class="card demo" href="demo-fisioterapia/"><div class="thumb" style="background:linear-gradient(135deg,#0284c7,#0f766e)">🩺</div><div class="body"><div class="tag" data-i18n="d3tag">Fisioterapia · Demo</div><h3>Fisioterapia Demo</h3><p data-i18n="d3d">Tratamientos, tarifas, equipo, horario y cita por WhatsApp o teléfono.</p></div></a>
+    <a class="card demo" href="demo-peluqueria/"><div class="thumb" style="background:linear-gradient(135deg,#db2777,#7c3aed)">✂️</div><div class="body"><div class="tag">Peluquería · Demo</div><h3>Peluquería Demo</h3><p>Servicios con precios, galería, horario y reserva por WhatsApp.</p></div></a>
+    <a class="card demo" href="demo-sidreria/"><div class="thumb" style="background:linear-gradient(135deg,#b45309,#65a30d)">🍏</div><div class="body"><div class="tag">Sidrería · Demo</div><h3>Sidrería Demo</h3><p>Carta, menú del día, fotos del local, mapa y botón de reserva.</p></div></a>
+    <a class="card demo" href="demo-fisioterapia/"><div class="thumb" style="background:linear-gradient(135deg,#0284c7,#0f766e)">🩺</div><div class="body"><div class="tag">Fisioterapia · Demo</div><h3>Fisioterapia Demo</h3><p>Tratamientos, tarifas, equipo, horario y cita por WhatsApp o teléfono.</p></div></a>
   </div>
 </div></section>
 
 <section id="precio"><div class="wrap">
-  <h2 data-i18n="p_t">Precio claro, sin letra pequeña</h2>
-  <p class="sub" data-i18n="p_s">Pagas una vez y la web es tuya. El mantenimiento es opcional.</p>
+  <h2>Precio claro, sin letra pequeña</h2>
+  <p class="sub">Pagas una vez y la web es tuya. El mantenimiento es opcional.<br><b>💳 Pago fácil por Bizum o transferencia. Pagas al aprobar la web.</b></p>
   <div class="price">
     <div class="plan main">
-      <div class="tag" style="color:var(--brand);font-weight:700" data-i18n="pl1tag">WEB EN 48 H</div>
-      <div class="amt">99€ <small data-i18n="pl1once">pago único</small></div>
+      <div class="tag" style="color:var(--brand);font-weight:700">WEB EN 48 H</div>
+      <div class="amt">99€ <small>pago único</small></div>
       <ul>
-        <li data-i18n="pl1a">Web de una página, diseño a medida de tu negocio</li>
-        <li data-i18n="pl1b">Servicios, fotos, horario, mapa</li>
-        <li data-i18n="pl1c">Botón de WhatsApp y de llamada</li>
-        <li data-i18n="pl1d">Preparada para Google y móvil</li>
-        <li data-i18n="pl1e">Hosting gratis en Netlify</li>
-        <li data-i18n="pl1f">1 ronda de cambios incluida</li>
+        <li>Web de una página, diseño a medida de tu negocio</li>
+        <li>Servicios, fotos, horario, mapa</li>
+        <li>Botón de WhatsApp y de llamada</li>
+        <li>Preparada para Google y móvil</li>
+        <li>Hosting gratis en Netlify</li>
+        <li>1 ronda de cambios incluida</li>
+        <li>Pago por Bizum o transferencia al aprobarla</li>
       </ul>
-      <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" data-i18n="cta3">✉️ La quiero</a>
+      <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h">✉️ La quiero</a>
     </div>
     <div class="plan">
-      <div class="tag" style="color:var(--muted);font-weight:700" data-i18n="pl2tag">CUIDADO MENSUAL (OPCIONAL)</div>
-      <div class="amt">9€ <small data-i18n="pl2mo">/ mes</small></div>
+      <div class="tag" style="color:var(--muted);font-weight:700">CUIDADO MENSUAL (OPCIONAL)</div>
+      <div class="amt">9€ <small>/ mes</small></div>
       <ul>
-        <li data-i18n="pl2a">Cambios pequeños cuando los necesites (horario, precios, fotos)</li>
-        <li data-i18n="pl2b">Revisión de que todo funciona</li>
-        <li data-i18n="pl2c">Ayuda con tu ficha de Google</li>
-        <li data-i18n="pl2d">Sin permanencia: te das de baja cuando quieras</li>
+        <li>Cambios pequeños cuando los necesites (horario, precios, fotos)</li>
+        <li>Revisión de que todo funciona</li>
+        <li>Ayuda con tu ficha de Google</li>
+        <li>Sin permanencia: te das de baja cuando quieras</li>
       </ul>
-      <a class="btn" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" style="background:#e2e8f0" data-i18n="cta4">Preguntar</a>
+      <a class="btn" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" style="background:#e2e8f0">Preguntar</a>
     </div>
   </div>
 </div></section>
 
 <section style="background:#fff"><div class="wrap">
-  <h2 data-i18n="s_t">Cómo funciona</h2>
-  <p class="sub" data-i18n="s_s">Tú solo tienes que mandarme la información. Yo me encargo del resto.</p>
+  <h2>Cómo funciona</h2>
+  <p class="sub">Tú solo tienes que mandarme la información. Yo me encargo del resto.</p>
   <div class="grid g3 steps">
-    <div class="card step"><h3 data-i18n="s1t">Me escribes</h3><p data-i18n="s1d">Por email (ali.attia@virtualy.win). Me cuentas qué haces y me mandas fotos, horario y servicios.</p></div>
-    <div class="card step"><h3 data-i18n="s2t">La preparo</h3><p data-i18n="s2d">En 48 horas tienes un enlace para ver tu web. Si quieres cambiar algo, lo ajusto.</p></div>
-    <div class="card step"><h3 data-i18n="s3t">La publicamos</h3><p data-i18n="s3d">Cuando te guste, la publicamos, la enlazamos desde Google Maps e Instagram y pagas.</p></div>
+    <div class="card step"><h3>Me escribes</h3><p>Por email (ali.attia@virtualy.win). Me cuentas qué haces y me mandas fotos, horario y servicios.</p></div>
+    <div class="card step"><h3>La preparo</h3><p>En 48 horas tienes un enlace para ver tu web. Si quieres cambiar algo, lo ajusto.</p></div>
+    <div class="card step"><h3>La publicamos</h3><p>Cuando te guste, la publicamos, la enlazamos desde Google Maps e Instagram y pagas.</p></div>
   </div>
 </div></section>
 
 <section id="faq"><div class="wrap">
-  <h2 data-i18n="faq_t">Preguntas frecuentes</h2>
-  <details><summary data-i18n="fq1">¿De verdad son 99€ sin más costes?</summary><p data-i18n="fa1">Sí. La web y el hosting en Netlify no tienen coste adicional. Lo único opcional es un dominio propio (.es / .com, unos 10–15€ al año, lo pagas tú directamente) y el cuidado mensual de 9€ si lo quieres.</p></details>
-  <details><summary data-i18n="fq2">¿Cuándo pago?</summary><p data-i18n="fa2">Cuando hayas visto la web y te guste. Así no arriesgas nada.</p></details>
-  <details><summary data-i18n="fq3">¿Qué necesitas de mí?</summary><p data-i18n="fa3">Nombre del negocio, servicios (y precios si quieres mostrarlos), horario, dirección, teléfono/WhatsApp y unas cuantas fotos. Si ya tienes Instagram o ficha de Google, puedo sacar mucho de ahí.</p></details>
-  <details><summary data-i18n="fq4">¿Y si ya tengo Facebook o Instagram?</summary><p data-i18n="fa4">Perfecto, se complementan. Las redes van bien para el día a día, pero una web aparece en Google, carga rápido y da toda la información de un vistazo sin necesidad de tener cuenta.</p></details>
-  <details><summary data-i18n="fq5">¿Puedo pedir una tienda online o reservas automáticas?</summary><p data-i18n="fa5">Esta oferta es para una web de una página. Si necesitas algo más grande, lo hablamos y te doy un presupuesto aparte.</p></details>
+  <h2>Preguntas frecuentes</h2>
+  <details><summary>¿De verdad son 99€ sin más costes?</summary><p>Sí. La web y el hosting en Netlify no tienen coste adicional. Lo único opcional es un dominio propio (.es / .com, unos 10–15€ al año, lo pagas tú directamente) y el cuidado mensual de 9€ si lo quieres.</p></details>
+  <details><summary>¿Cuándo pago?</summary><p>Cuando hayas visto la web y te guste. Pago fácil por Bizum o transferencia, sin tarjetas ni complicaciones. Así no arriesgas nada.</p></details>
+  <details><summary>¿Qué necesitas de mí?</summary><p>Nombre del negocio, servicios (y precios si quieres mostrarlos), horario, dirección, teléfono/WhatsApp y unas cuantas fotos. Si ya tienes Instagram o ficha de Google, puedo sacar mucho de ahí.</p></details>
+  <details><summary>¿Y si ya tengo Facebook o Instagram?</summary><p>Perfecto, se complementan. Las redes van bien para el día a día, pero una web aparece en Google, carga rápido y da toda la información de un vistazo sin necesidad de tener cuenta.</p></details>
+  <details><summary>¿Puedo pedir una tienda online o reservas automáticas?</summary><p>Esta oferta es para una web de una página. Si necesitas algo más grande, lo hablamos y te doy un presupuesto aparte.</p></details>
 </div></section>
 
 <section><div class="wrap">
   <div class="cta">
-    <h2 data-i18n="c_t">¿Hablamos?</h2>
-    <p data-i18n="c_s">Escríbeme a ali.attia@virtualy.win y te cuento cómo quedaría la web de tu negocio.</p>
-    <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h" data-i18n="cta5">✉️ ali.attia@virtualy.win</a>
+    <h2>¿Hablamos?</h2>
+    <p>Escríbeme a ali.attia@virtualy.win y te cuento cómo quedaría la web de tu negocio.</p>
+    <a class="btn wa" href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h">✉️ ali.attia@virtualy.win</a>
     
   </div>
 </div></section>
 
-<footer><div class="wrap"><span data-i18n="foot">Webs sencillas para pequeños negocios · Oviedo, Asturias</span> · Ali Attia · <a href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h">ali.attia@virtualy.win</a> · © 2026</div></footer>
+<footer><div class="wrap"><span>Webs sencillas para pequeños negocios · Oviedo, Asturias</span> · Ali Attia · <a href="mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h">ali.attia@virtualy.win</a> · © 2026</div></footer>
 
-<script>
-const EN={
-nav1:"What's included",nav2:"Examples",nav3:"Price",nav4:"FAQ",
-h1:'Your website in <em>48 hours</em> for <em>€99</em>',
-lead:"A simple, fast, professional website for your business in Oviedo and Asturias. Your services, photos, opening hours, map and a button so customers can WhatsApp or call you. No hassle and no mandatory fees.",
-cta1:"✉️ Ask by email",cta2:"See examples",b1:"⚡ Ready in 48 h",b2:"📱 Mobile-perfect",b3:"🔎 Google-ready",b4:"🆓 Free hosting",
-q_t:"What your website includes",q_s:"Everything a customer needs to find you, trust you and contact you — on a single page.",
-f1t:"Your services and prices",f1d:"Clearly explained, so customers know what you offer before they call.",
-f2t:"Photos of your business",f2d:"We use your photos (phone photos are fine), optimised to load fast.",
-f3t:"Hours and location",f3d:"Opening hours always visible and an embedded map so nobody gets lost.",
-f4t:"WhatsApp and call button",f4d:"One tap and the customer messages or calls you. No complicated forms.",
-f5t:"Google-ready",f5d:"Proper title, description and business details, linkable from your Google Maps listing and Instagram.",
-f6t:"Free hosting",f6d:"Published on Netlify at no hosting cost. Want your own domain (.es or .com)? I'll help connect it (the domain itself costs about €10–15/year).",
-e_t:"Examples",e_s:"Three demo websites for fictional Oviedo businesses, so you can see how yours would look. Open them on your phone.",
-d1tag:"Hair salon · Demo",d1d:"Services with prices, gallery, hours and WhatsApp booking.",
-d2tag:"Cider house · Demo",d2d:"Menu, daily set menu, photos, map and booking button.",
-d3tag:"Physiotherapy · Demo",d3d:"Treatments, rates, team, hours and appointments via WhatsApp or phone.",
-p_t:"Clear pricing, no fine print",p_s:"Pay once and the website is yours. Maintenance is optional.",
-pl1tag:"WEBSITE IN 48 H",pl1once:"one-off",pl1a:"One-page website, designed for your business",pl1b:"Services, photos, hours, map",pl1c:"WhatsApp and call button",pl1d:"Google- and mobile-ready",pl1e:"Free hosting on Netlify",pl1f:"1 round of changes included",cta3:"✉️ I want it",
-pl2tag:"MONTHLY CARE (OPTIONAL)",pl2mo:"/ month",pl2a:"Small changes whenever you need them (hours, prices, photos)",pl2b:"Regular check that everything works",pl2c:"Help with your Google Business listing",pl2d:"No lock-in: cancel anytime",cta4:"Ask",
-s_t:"How it works",s_s:"You just send me the info. I handle the rest.",
-s1t:"You message me",s1d:"By email (ali.attia@virtualy.win). Tell me what you do and send photos, hours and services.",
-s2t:"I build it",s2d:"Within 48 hours you get a link to preview your site. Want changes? I'll adjust it.",
-s3t:"We publish it",s3d:"Once you're happy, we publish it, link it from Google Maps and Instagram, and you pay.",
-faq_t:"FAQ",fq1:"Is it really €99 with no extra costs?",fa1:"Yes. The website and Netlify hosting have no extra cost. The only optional extras are your own domain (.es / .com, about €10–15/year, paid directly by you) and the €9 monthly care if you want it.",
-fq2:"When do I pay?",fa2:"Once you've seen the website and you like it. So there's no risk for you.",
-fq3:"What do you need from me?",fa3:"Business name, services (and prices if you want to show them), hours, address, phone/WhatsApp and a few photos. If you already have Instagram or a Google listing, I can take a lot from there.",
-fq4:"What if I already have Facebook or Instagram?",fa4:"Great — they complement each other. Social media is good for day-to-day, but a website shows up on Google, loads fast and gives all the info at a glance without needing an account.",
-fq5:"Can I get an online shop or automatic bookings?",fa5:"This offer is for a one-page website. If you need something bigger, let's talk and I'll quote it separately.",
-c_t:"Shall we talk?",c_s:"Email me at ali.attia@virtualy.win and I'll tell you how your business website could look.",cta5:"✉️ ali.attia@virtualy.win",
-foot:"Simple websites for small businesses · Oviedo, Asturias"};
-const ES={};document.querySelectorAll('[data-i18n]').forEach(e=>ES[e.dataset.i18n]=e.textContent);
-document.querySelectorAll('[data-i18n-html]').forEach(e=>ES[e.dataset.i18nHtml]=e.innerHTML);
-const ES_TITLE=document.title,EN_TITLE="Your website in 48 hours for €99 | Websites for Oviedo & Asturias businesses";
-function setLang(l){const d=l==='en'?EN:ES;
-document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(d[k])e.textContent=d[k]});
-document.querySelectorAll('[data-i18n-html]').forEach(e=>{const k=e.dataset.i18nHtml;if(d[k])e.innerHTML=d[k]});
-document.documentElement.lang=l;document.title=l==='en'?EN_TITLE:ES_TITLE;
-document.getElementById('langBtn').textContent=l==='en'?'ES':'EN';try{localStorage.setItem('lang',l)}catch(e){}}
-document.getElementById('langBtn').onclick=()=>setLang(document.documentElement.lang==='en'?'es':'en');
-if(location.hash==='#en'||(()=>{try{return localStorage.getItem('lang')==='en'}catch(e){return false}})())setLang('en');
-</script>
 </body>
 </html>
