@@ -19,6 +19,16 @@ src/pages/*.json    páginas extra (landings SEO) -> plantilla landing_page(); v
 site/               salida generada (lo que se despliega)
 ```
 
+## Integración SEO (hecha el 25/09/2026)
+
+`build.py` importa automáticamente lo que deja el worker SEO en `/workspace/research/seo/web-48h-integration/`:
+- `site-drop/<slug>/index.html`: se extrae title/description/canonical/OG/JSON-LD y el `<main>`, y se re-renderiza
+  con el layout y la cabecera/pie comunes (clases `lp-*` estilizadas en `offer.css` con los tokens v2).
+- `site-drop/og/*.png` -> `/og/`, `site-drop/sitemap.xml` y `robots.txt` -> raíz.
+- `home-snippet.html`: su JSON-LD sustituye al de la portada y su lista de enlaces se convierte en la sección
+  "Webs por sector" de la portada; el pie de todas las páginas enlaza a las 8 landings.
+Para actualizar: el worker regenera su carpeta, y aquí `python3 src/build.py && npx netlify-cli deploy --prod --dir site`.
+
 ## Añadir páginas / integración SEO
 
 1. Crea `src/pages/<slug>.json` (ver `src/pages/_example.json.txt`), o deja que el worker SEO escriba en

@@ -102,6 +102,7 @@ def offer_footer():
     <a href="{MAILTO}">{EMAIL}</a>
     <span>© 2026</span>
   </div>
+  {('<nav class="wrap sectors" aria-label="Webs por sector">' + SECTOR_NAV + '</nav>') if SECTOR_NAV else ''}
 </footer>
 <a class="fab" href="{WA}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">{WA_ICON}</a>"""
 
@@ -143,6 +144,7 @@ FAQ = [
 ]
 
 def offer_page():
+    HUB = home_seo_snippet()[1]
     demos = "\n".join(f"""      <a class="demo reveal" href="/{s}/">
         <div class="frame"><picture><source media="(max-width:600px)" srcset="/assets/shots/{s}-m.webp"><img src="/assets/shots/{s}.webp" width="800" height="1000" alt="Captura de la web de ejemplo {e(n)}" loading="lazy" decoding="async"></picture></div>
         <div class="meta"><h3>{e(n)}</h3><span class="kind">{e(k)}</span></div>
@@ -225,6 +227,7 @@ def offer_page():
     </div>
   </div>
 </section>
+{HUB}
 {final_cta()}
 </main>
 {offer_footer()}"""
@@ -238,6 +241,9 @@ def offer_page():
         "priceRange": "99€",
         "makesOffer": {"@type": "Offer", "name": "Web de una página en 48 horas", "price": "99", "priceCurrency": "EUR"},
     }]
+    seo_ld = home_seo_snippet()[0]
+    if seo_ld:
+        jsonld = seo_ld
     return dict(path="/", title="Tu web profesional en 48 horas por 99€ · Oviedo y Asturias",
                 og_title="Tu web profesional en 48 horas. 99€.",
                 description="Webs de una página para negocios locales de Oviedo y Asturias: servicios, fotos, horario, mapa y WhatsApp. 99€, lista en 48 horas. Pagas al aprobarla.",
@@ -479,6 +485,65 @@ FISIO = dict(
     book_title="Pide tu primera valoración.", book_text="Cuéntanos brevemente qué te pasa y te proponemos el primer hueco disponible.",
 )
 
+
+# ---------- SEO worker drop (site-drop/<slug>/index.html) -> re-skinned with the shared layout ----------
+SEO_DROP = os.path.join(SEO_DIR, "site-drop")
+SECTOR_NAV = ""
+
+def _meta(h, prop, attr="name"):
+    m = re.search(r'<meta %s="%s" content="([^"]*)"' % (attr, re.escape(prop)), h)
+    return html.unescape(m.group(1)) if m else ""
+
+def seo_drop_pages():
+    global SECTOR_NAV
+    pages = []
+    for f in sorted(glob.glob(os.path.join(SEO_DROP, "*", "index.html"))):
+        slug = os.path.basename(os.path.dirname(f))
+        h = open(f, encoding="utf-8").read()
+        title = html.unescape(re.search(r"<title>(.*?)</title>", h, re.S).group(1).strip())
+        canon = re.search(r'<link rel="canonical" href="([^"]+)"', h)
+        main = re.search(r"<main>(.*?)</main>", h, re.S).group(1)
+        lds = [json.loads(x) for x in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)]
+        nav = re.search(r'<p class="lp-allnav">(.*?)</p>', h, re.S)
+        if nav and not SECTOR_NAV:
+            SECTOR_NAV = nav.group(1)
+        og = _meta(h, "og:image", "property") or "/assets/og.png"
+        body = f"""{offer_header(home=False)}
+<main id="main" class="lp-page">
+{main}
+</main>
+{offer_footer()}"""
+        pages.append(dict(path=f"/{slug}/", title=title, description=_meta(h, "description"),
+                          og_title=_meta(h, "og:title", "property") or title, og_image=og,
+                          canonical=canon.group(1) if canon else None,
+                          noindex="noindex" in _meta(h, "robots"), css=["/assets/css/offer.css"],
+                          jsonld=lds, body=body))
+    return pages
+
+def home_seo_snippet():
+    """Returns (jsonld_list, hub_html) from home-snippet.html, or ([], '')."""
+    f = os.path.join(SEO_DIR, "home-snippet.html")
+    if not os.path.isfile(f):
+        return [], ""
+    h = open(f, encoding="utf-8").read()
+    lds = [json.loads(x) for x in re.findall(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)]
+    links = re.findall(r'<li><a href="(/[^"]+)">([^<]+)</a></li>', h)
+    if not links:
+        return lds, ""
+    items = "\n".join(f'<li><a href="{u}"><span>{t}</span>{ARROW}</a></li>' for u, t in links)
+    hub = f"""<section id="sectores">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div><span class="eyebrow">Por sector</span><h2 style="margin-top:20px">Webs por sector y ciudad.</h2></div>
+      <p>Qué incluye la web según tu tipo de negocio, con precios y preguntas frecuentes.</p>
+    </div>
+    <ul class="hub reveal">
+{items}
+    </ul>
+  </div>
+</section>"""
+    return lds, hub
+
 # ---------- extra pages ----------
 def extra_pages():
     pages = []
@@ -512,7 +577,11 @@ def main():
     shutil.copytree(os.path.join(HERE, "assets"), os.path.join(OUT, "assets"))
     for f in os.listdir(os.path.join(HERE, "static")):
         shutil.copy(os.path.join(HERE, "static", f), OUT)
-    pages = [offer_page(), demo_page(PELU), demo_page(SIDRA), demo_page(FISIO)] + extra_pages()
+    seo = seo_drop_pages()  # also sets SECTOR_NAV (footer links) before the other pages render
+    pages = [offer_page(), demo_page(PELU), demo_page(SIDRA), demo_page(FISIO)] + extra_pages() + seo
+    og_dir = os.path.join(SEO_DROP, "og")
+    if os.path.isdir(og_dir):
+        shutil.copytree(og_dir, os.path.join(OUT, "og"), dirs_exist_ok=True)
     extra_ld = seo_jsonld()
     for p in pages:
         if p["path"] in extra_ld and not p.get("noindex"):
@@ -520,9 +589,10 @@ def main():
         write(p["path"], layout(p))
     # sitemap / robots: SEO worker's versions win, else generate
     for name in ("sitemap.xml", "robots.txt"):
-        src = os.path.join(SEO_DIR, name)
-        if os.path.isfile(src):
-            shutil.copy(src, os.path.join(OUT, name))
+        for src in (os.path.join(SEO_DIR, name), os.path.join(SEO_DROP, name)):
+            if os.path.isfile(src):
+                shutil.copy(src, os.path.join(OUT, name))
+                break
     if not os.path.isfile(os.path.join(OUT, "sitemap.xml")):
         urls = "".join(f"<url><loc>{SITE_URL}{p['path']}</loc></url>" for p in pages if not p.get("noindex"))
         write("/sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
