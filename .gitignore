@@ -1,0 +1,3 @@
+.netlify/
+*.png
+__pycache__/
