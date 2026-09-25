@@ -1,3 +1,4 @@
+v2/
 .netlify/
-*.png
 __pycache__/
+/*.png

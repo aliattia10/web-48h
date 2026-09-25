@@ -1,0 +1,12 @@
+{
+  "slug": "diseno-web-peluquerias-oviedo",
+  "title": "Diseño web para peluquerías en Oviedo · 99€ en 48 horas",
+  "description": "Web profesional para tu peluquería en Oviedo: servicios, precios, fotos, horario y cita por WhatsApp. 99€, lista en 48 horas.",
+  "eyebrow": "Peluquerías · Oviedo",
+  "h1": "Web para tu peluquería en Oviedo.",
+  "lead": "Servicios, precios, fotos y cita por WhatsApp. Lista en 48 horas por 99€.",
+  "sections": [
+    {"h2": "Qué incluye", "html": "<p>...</p><ul><li>...</li></ul>"}
+  ],
+  "jsonld": [{"@context": "https://schema.org", "@type": "Service", "name": "..."}]
+}

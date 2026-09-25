@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ali-webs-48h.netlify.app/sitemap.xml
