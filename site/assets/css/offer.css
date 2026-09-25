@@ -148,3 +148,19 @@ section{padding:104px 0}
 .lp-page .lp-cta p{color:rgba(255,255,255,.68)}
 .lp-page .lp-cta .lp-btn-ghost{border-color:rgba(255,255,255,.45);color:#fff}
 .lp-page .lp-cta .lp-btn-ghost:hover{background:#fff;color:var(--ink)}
+/* brand wordmark: longer "Virtualy · Ali Attia" */
+.brand{letter-spacing:.18em;white-space:nowrap}
+@media(max-width:520px){.hdr .brand{font-size:.66rem;letter-spacing:.14em;gap:10px}.hdr .brand svg{width:22px;height:22px}.hdr .btn span{display:none}.hdr .btn{padding:0 13px}}
+/* price menu (home) */
+.pmenu{border-top:1px solid var(--line)}
+.pmenu li{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)}
+.pmenu b{display:block;font-weight:600;letter-spacing:-.01em;font-size:1.05rem}
+.pmenu span{display:block;color:var(--muted);font-size:.93rem;margin-top:4px;max-width:36rem}
+.pmenu strong{font-size:clamp(1.5rem,3vw,2rem);font-weight:600;letter-spacing:-.03em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pmenu small{font-size:.85rem;font-weight:500;color:var(--muted);letter-spacing:0}
+/* price menu (SEO pages) */
+.lp-page .lp-menu{border-top:1px solid var(--line);margin-top:8px}
+.lp-page .lp-menu li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.lp-page .lp-menu span{color:var(--muted)}
+.lp-page .lp-menu b{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lp-page .lp-sec .lp-pval{color:var(--ink)}

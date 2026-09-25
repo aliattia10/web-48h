@@ -10,14 +10,17 @@ Adding a page:
     (pages/*.json, sitemap.xml, robots.txt, jsonld/*.json) and re-run this script.
 Run:  python3 src/build.py   -> writes ../site/
 """
-import json, os, re, shutil, html, glob
+import json, os, re, shutil, html, glob, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import offer_config as CFG
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "site")
-SITE_URL = "https://ali-webs-48h.netlify.app"
+SITE_URL = CFG.SITE_URL
+BRAND = CFG.BRAND
 SEO_DIR = "/workspace/research/seo/web-48h-integration"
-EMAIL = "ali.attia@virtualy.win"
+EMAIL = CFG.EMAIL
 MAILTO = "mailto:ali.attia@virtualy.win?subject=Quiero%20mi%20web%20en%2048h"
 WA = "https://wa.me/34677372245?text=" + quote("Hola Ali, quiero mi web en 48h por 99€. Mi negocio es: ", safe="")
 e = html.escape
@@ -57,7 +60,7 @@ def layout(p):
 <meta name="theme-color" content="{p.get('theme', '#0a0e1a')}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
-<meta property="og:site_name" content="Virtualy · Webs en 48 horas">
+<meta property="og:site_name" content="{e(BRAND)}">
 <meta property="og:title" content="{e(p.get('og_title', p['title']))}">
 <meta property="og:description" content="{e(p['description'])}">
 <meta property="og:url" content="{canon}">
@@ -86,7 +89,7 @@ def offer_header(home=True):
     pre = "" if home else "/"
     return f"""<header class="hdr">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Virtualy, inicio">{MARK}<span>Virtualy</span></a>
+    <a class="brand" href="/" aria-label="{e(BRAND)}, inicio">{MARK}<span>{e(BRAND)}</span></a>
     <nav class="nav" aria-label="Principal">
       <a href="{pre}#ejemplos">Ejemplos</a><a href="{pre}#incluye">Qué incluye</a><a href="{pre}#proceso">Proceso</a><a href="{pre}#preguntas">Preguntas</a>
     </nav>
@@ -97,8 +100,8 @@ def offer_header(home=True):
 def offer_footer():
     return f"""<footer class="ftr">
   <div class="wrap">
-    <a class="brand" href="/">{MARK}<span>Virtualy</span></a>
-    <span>Ali Attia · Webs para negocios locales · Oviedo, Asturias</span>
+    <a class="brand" href="/">{MARK}<span>{e(BRAND)}</span></a>
+    <span>Webs para negocios locales · Oviedo, Gijón y Asturias</span>
     <a href="{MAILTO}">{EMAIL}</a>
     <span>© 2026</span>
   </div>
@@ -106,7 +109,7 @@ def offer_footer():
 </footer>
 <a class="fab" href="{WA}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">{WA_ICON}</a>"""
 
-def final_cta(title="¿Hablamos de tu web?", text="Cuéntame qué haces y te enseño una propuesta en 48 horas. Si no te convence, no pagas nada."):
+def final_cta(title="¿Hablamos de tu web?", text="Cuéntame qué haces y te enseño una propuesta en 48 horas. Pagas solo cuando la apruebas."):
     return f"""<section class="final" id="contacto">
   <div class="wrap reveal">
     <span class="eyebrow">Contacto</span>
@@ -138,10 +141,32 @@ INCLUDES = [
 FAQ = [
     ("¿De verdad está en 48 horas?", "Sí. Cuando me envías el texto básico y algunas fotos, en 48 horas tienes la web lista para revisar. Si no tienes fotos, usamos imágenes profesionales con licencia libre."),
     ("¿Cómo se paga?", "Pago por Bizum o transferencia. Pagas al aprobar la web, no antes."),
-    ("¿Tengo que pagar algo cada mes?", "No. El alojamiento es gratuito. Si quieres que me ocupe de los cambios y el mantenimiento, hay una cuota opcional de 9€ al mes."),
+    ("¿Tengo que pagar algo cada mes?", f"No. El alojamiento es gratuito. El mantenimiento es opcional y sin permanencia: {CFG.fmt('care')} para la web, {CFG.fmt('care_citas')} si incluye reservas por WhatsApp."),
+    ("¿La web es mía?", "Sí, la web es tuya. Si lo pides, te entrego los archivos y el dominio."),
+    ("¿Podemos vernos en persona?", "Sí. Si estás en Oviedo o Gijón, nos vemos en tu negocio. Si no, lo hacemos todo por WhatsApp."),
     ("¿Puedo tener mi propio dominio?", "Sí. Puedo conectar un dominio tuyo (tunegocio.es). El dominio se paga aparte al registrador, normalmente entre 10€ y 15€ al año."),
     ("¿Y si ya tengo Facebook o Instagram?", "Perfecto: los enlazamos. La web te da un sitio propio, que aparece en Google y que tú controlas."),
 ]
+
+def price_section():
+    pr = CFG.prices()
+    rows = "\n".join(
+        f'<li><div><b>{e(pr[k]["name"])}</b><span>{e(CFG.DESC[k])}{(" " + e(pr[k]["note"])) if pr[k].get("note") else ""}</span></div>'
+        f'<strong>{pr[k]["price"]}€<small>{" / mes" if k.startswith("care") else ""}</small></strong></li>'
+        for k in CFG.MENU_ORDER)
+    iva = f'<p class="muted" style="margin-top:20px">{e(CFG.IVA_NOTE)}</p>' if CFG.IVA_NOTE else ""
+    return f"""<section id="precio">
+  <div class="wrap">
+    <div class="shead reveal">
+      <div><span class="eyebrow">Precios</span><h2 style="margin-top:20px">Precios claros, pago único.</h2></div>
+      <p>Pago por Bizum o transferencia. Pagas al aprobar el trabajo.</p>
+    </div>
+    <ul class="pmenu reveal">
+{rows}
+    </ul>
+    {iva}
+  </div>
+</section>"""
 
 def offer_page():
     HUB = home_seo_snippet()[1]
@@ -193,7 +218,7 @@ def offer_page():
       <div class="price">
         <div class="amt">99€<small>pago único</small></div>
         <p>Pago por Bizum o transferencia. <strong>Pagas al aprobar la web.</strong></p>
-        <p>Mantenimiento opcional: 9€/mes para cambios de horario, precios o fotos.</p>
+        <p>Mantenimiento opcional: {CFG.fmt('care')} (solo web) o {CFG.fmt('care_citas')} con reservas.{(' ' + e(CFG.IVA_NOTE)) if CFG.IVA_NOTE else ''}</p>
         <a class="btn btn--solid" href="{WA}" target="_blank" rel="noopener">{WA_ICON}<span>Pedir mi web</span></a>
       </div>
     </div>
@@ -202,6 +227,8 @@ def offer_page():
     </ul>
   </div>
 </section>
+
+{price_section()}
 
 <section id="proceso">
   <div class="wrap">
@@ -231,21 +258,9 @@ def offer_page():
 {final_cta()}
 </main>
 {offer_footer()}"""
-    jsonld = [{
-        "@context": "https://schema.org", "@type": "ProfessionalService",
-        "name": "Virtualy · Webs en 48 horas", "url": SITE_URL + "/", "image": SITE_URL + "/assets/og.png",
-        "description": "Diseño de webs de una página para negocios locales en Oviedo y Asturias. 99€, entrega en 48 horas.",
-        "email": EMAIL, "founder": {"@type": "Person", "name": "Ali Attia"},
-        "areaServed": [{"@type": "City", "name": "Oviedo"}, {"@type": "AdministrativeArea", "name": "Asturias"}],
-        "address": {"@type": "PostalAddress", "addressLocality": "Oviedo", "addressRegion": "Asturias", "addressCountry": "ES"},
-        "priceRange": "99€",
-        "makesOffer": {"@type": "Offer", "name": "Web de una página en 48 horas", "price": "99", "priceCurrency": "EUR"},
-    }]
-    seo_ld = home_seo_snippet()[0]
-    if seo_ld:
-        jsonld = seo_ld
-    return dict(path="/", title="Tu web profesional en 48 horas por 99€ · Oviedo y Asturias",
-                og_title="Tu web profesional en 48 horas. 99€.",
+    jsonld = [CFG.jsonld_business()]
+    return dict(path="/", title=f"Tu web profesional en 48 horas por 99€ · {BRAND}",
+                og_title=f"Tu web profesional en 48 horas. 99€. · {BRAND}",
                 description="Webs de una página para negocios locales de Oviedo y Asturias: servicios, fotos, horario, mapa y WhatsApp. 99€, lista en 48 horas. Pagas al aprobarla.",
                 css=["/assets/css/offer.css"], jsonld=jsonld, body=body)
 
@@ -274,7 +289,7 @@ def landing_page(d):
 {final_cta()}
 </main>
 {offer_footer()}"""
-    return dict(path=path, title=d["title"], description=d["description"], canonical=d.get("canonical"),
+    return dict(path=path, title=d["title"] if BRAND in d["title"] else d["title"] + " · " + BRAND, description=d["description"], canonical=d.get("canonical"),
                 noindex=d.get("noindex", False), css=["/assets/css/offer.css"], jsonld=d.get("jsonld", []), body=body)
 
 # ---------- demos ----------
@@ -369,7 +384,7 @@ def demo_page(D):
 <footer class="df">
   <div class="wrap">
     <span>{e(D['name'])} · Negocio ficticio creado como ejemplo</span>
-    <span>Diseño: <a href="/">Virtualy · Tu web en 48 horas por 99€</a></span>
+    <span>Diseño: <a href="/">{e(BRAND)} · Tu web en 48 horas por 99€</a></span>
   </div>
 </footer>
 <a class="fab js-demo" href="#visita" aria-label="{e(D['cta'])} (demostración)">{WA_ICON}</a>
@@ -380,7 +395,7 @@ var t=document.querySelector('.toast');t.textContent='Botón de demostración. E
 clearTimeout(window.__t);window.__t=setTimeout(function(){{t.classList.remove('on')}},2600);}})}});
 </script>"""
     style = f"<style>:root{{--bg:{D['bg']};--bg-2:{D['bg2']};--ink:{D['ink']};--muted:{D['muted']};--accent:{D['accent']};--accent-deep:{D['accent_deep']}}}</style>"
-    return dict(path=f"/{s}/", title=f"{D['name']} · {D['kind']} en Oviedo (web de demostración)",
+    return dict(path=f"/{s}/", title=f"{D['name']} · {D['kind']} en Oviedo (web de demostración) · {BRAND}",
                 description=D["lead"] + " Web de demostración de un negocio ficticio.",
                 noindex=True, css=["/assets/css/demo.css"], head_extra=style, theme=D["bg"],
                 og_image=f"/assets/shots/{s}-og.jpg", body=body)
